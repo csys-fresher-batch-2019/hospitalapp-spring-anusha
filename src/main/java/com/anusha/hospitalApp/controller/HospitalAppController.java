@@ -27,10 +27,10 @@ public class HospitalAppController {
 		Doctors d1 = new Doctors();
 
 		d1.setDoctorName(name);
-		d1.setdPhoneNumber(phoneNumber);
+		d1.setDPhoneNumber(phoneNumber);
 		d1.setDepartmentId(depId);
 		d1.setDoctorPassword(password);
-		d1.setdGender(gender);
+		d1.setDGender(gender);
 		
 		int add = dao.save(d1);
 		

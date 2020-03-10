@@ -1,15 +1,16 @@
 package com.anusha.hospitalApp.dao.impl;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
-import com.anusha.hospitalApp.controller.IndexController;
 import com.anusha.hospitalApp.dao.DoctorsDAO;
 import com.anusha.hospitalApp.exception.DBException;
 import com.anusha.hospitalApp.exception.ErrorConstant;
@@ -19,7 +20,7 @@ import com.anusha.hospitalApp.util.ConnectionUtil;
 @Repository
 public class DoctorsDAOImpl implements DoctorsDAO {
 
-	private static final org.slf4j.Logger Logger = LoggerFactory.getLogger(IndexController.class);
+	private static final org.slf4j.Logger Logger = LoggerFactory.getLogger(DoctorsDAOImpl.class);
 	private static final String ACTION_1 = "doctor_id";
 	private static final String ACTION_2 = "department_id";
 
@@ -34,8 +35,8 @@ public class DoctorsDAOImpl implements DoctorsDAO {
 			pst.setString(1, doc.getDoctorName());
 			pst.setInt(2, doc.getDepartmentId());
 			pst.setString(3, doc.getDoctorPassword());
-			pst.setString(4, doc.getdPhoneNumber());
-			pst.setString(5, doc.getdGender());
+			pst.setString(4, doc.getDPhoneNumber());
+			pst.setString(5, doc.getDGender());
 
 			rows = pst.executeUpdate();
 			Logger.debug("No of rows inserted " + rows);
@@ -74,8 +75,8 @@ public class DoctorsDAOImpl implements DoctorsDAO {
 				d1.setDepartmentId(deptId);
 				d1.setActive(active);
 				d1.setDoctorPresent(present);
-				d1.setdPhoneNumber(dPhoneNumber);
-				d1.setdGender(dGender);
+				d1.setDPhoneNumber(dPhoneNumber);
+				d1.setDGender(dGender);
 				d1.setNoOfAppointment(noOfAppointment);
 
 				list.add(d1);
@@ -208,8 +209,8 @@ public class DoctorsDAOImpl implements DoctorsDAO {
 					d1.setDepartmentId(deptId);
 					d1.setActive(active);
 					d1.setDoctorPresent(present);
-					d1.setdPhoneNumber(dPhoneNumber);
-					d1.setdGender(dGender);
+					d1.setDPhoneNumber(dPhoneNumber);
+					d1.setDGender(dGender);
 					d1.setNoOfAppointment(noOfAppointment);
 
 					list.add(d1);
@@ -247,6 +248,32 @@ public class DoctorsDAOImpl implements DoctorsDAO {
 		}
 		return v;
 
+	}
+
+	public boolean login(Doctors doc) throws ClassNotFoundException {
+
+		try (Connection con = ConnectionUtil.getconnection();
+				CallableStatement stmt = con.prepareCall("{call doctor_login(?,?,?,?)}")) {
+			stmt.setString(1, doc.getDPhoneNumber());
+			stmt.setString(2, doc.getDoctorPassword());
+			stmt.setInt(3, doc.getActive());
+			stmt.registerOutParameter(4, Types.VARCHAR);
+			stmt.executeUpdate();
+			String status = stmt.getString(4);
+			Logger.info("Status = " + status);
+			if ((status.equals("Success")) && (doc.getActive() == 1)) {
+				Logger.debug("Logged In");
+				return true;
+			} else {
+				Logger.debug("Logged out");
+				return false;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			Logger.error(e.getMessage());
+		}
+
+		return false;
 	}
 
 }

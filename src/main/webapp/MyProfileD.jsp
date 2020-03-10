@@ -37,8 +37,8 @@ for (Doctors doc : a) {%>
 <td><%= doc.getDoctorId() %></td>
 <td><%= doc.getDoctorName() %></td>
 <td><%= doc.getDepartmentId() %>
-<td><%= doc.getdPhoneNumber() %></td>
-<td><%= doc.getdGender() %></td>
+<td><%=doc.getDPhoneNumber()%></td>
+<td><%=doc.getDGender()%></td>
 <td><%= doc.getNoOfAppointment() %></td>
 <td><%= doc.getDoctorPresent() %></td>
 <td><%= doc.getActive() %></td>

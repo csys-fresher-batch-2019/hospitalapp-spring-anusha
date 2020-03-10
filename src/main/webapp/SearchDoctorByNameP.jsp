@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Search Doctor Result</title>
+<title>Search Doctor By Name</title>
 </head>
 <body>
 <jsp:include page="PatientNavBar.jsp"></jsp:include>

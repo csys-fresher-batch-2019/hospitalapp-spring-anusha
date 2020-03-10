@@ -33,10 +33,10 @@ public class DoctorRegister extends HttpServlet {
 		Doctors d1 = new Doctors();
 		
 		d1.setDoctorName(name);
-		d1.setdPhoneNumber(phoneNumber);
+		d1.setDPhoneNumber(phoneNumber);
 		d1.setDepartmentId(depId);
 		d1.setDoctorPassword(password);
-		d1.setdGender(gender);
+		d1.setDGender(gender);
 		DoctorsDAO dao = DAOFactory.getDoctorsDAO();
 		
 		List<Doctors> list;
@@ -45,14 +45,14 @@ public class DoctorRegister extends HttpServlet {
 		boolean status=false;
 			for (Doctors doc:list)
 			{
-				String phNo = doc.getdPhoneNumber();
+				String phNo = doc.getDPhoneNumber();
 				if (phNo .equals(phoneNumber)) {
 					status = true;
 				}
 				System.out.println(status);
 			}
 			if(status) {
-				request.setAttribute("errorMessage1", "Registered already!! Please login...");
+				request.setAttribute("errorMessage", "Registered already!! Please login...");
 				RequestDispatcher dispatcher1 = request.getRequestDispatcher("DoctorRegistration.jsp");
 				dispatcher1.forward(request, response);
 			}

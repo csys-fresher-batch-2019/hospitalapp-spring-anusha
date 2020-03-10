@@ -12,6 +12,8 @@ public interface PatientsDAO {
 	//insert
 	void save(Patients p) throws ClassNotFoundException, SQLException, DBException;
 	
+	public boolean login(Patients user); 
+	
 	//display
 	List<Patients> findAll() throws DBException ;
 	

@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
-import com.anusha.hospitalApp.controller.IndexController;
 import com.anusha.hospitalApp.dao.DepartmentsDAO;
 import com.anusha.hospitalApp.exception.DBException;
 import com.anusha.hospitalApp.exception.ErrorConstant;
@@ -19,7 +18,7 @@ import com.anusha.hospitalApp.util.ConnectionUtil;
 @Repository
 public class DepartmentsDAOImpl implements DepartmentsDAO {
 
-	private static final org.slf4j.Logger Logger = LoggerFactory.getLogger(IndexController.class);
+	private static final org.slf4j.Logger Logger = LoggerFactory.getLogger(DepartmentsDAOImpl.class);
 
 	public void save(Departments dept) throws ClassNotFoundException, SQLException, DBException {
 		

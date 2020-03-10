@@ -1,15 +1,7 @@
 package com.anusha.hospitalApp.model;
 
-import java.sql.CallableStatement;
-import java.sql.Connection;
-import java.sql.Types;
-
-import com.anusha.hospitalApp.util.ConnectionUtil;
-import com.anusha.hospitalApp.util.Logger;
-
 public class Patients {
 
-	private static final Logger LOGGER = Logger.getInstance();
 	private int patientId;
 	private String patientName;
 	private int age;
@@ -66,30 +58,5 @@ public class Patients {
 	public void setActivePatient(int activePatient) {
 		this.activePatient = activePatient;
 	}
-	public boolean login(Patients user) {
-		
-		try(Connection con = ConnectionUtil.getconnection();
-				CallableStatement stmt=con.prepareCall("{call patient_login(?,?,?,?)}")) {
-		stmt.setString(1,user.getpPhoneNumber());
-		stmt.setString(2, user.getPatientPassword());
-		stmt.setInt(3, user.getActivePatient());
-		stmt.registerOutParameter(4, Types.VARCHAR);
-		stmt.executeUpdate();
-		String status=stmt.getString(4);
-		LOGGER.info("Status = "+status);
-		if((status.equals("Success"))&&(user.activePatient==1)) {
-		LOGGER.debug("Logged In");
-		return true;
-		}
-		else {
-		LOGGER.debug("Logged out");
-		return false;
-		}
-		} catch (Exception e) {
-		LOGGER.debug(e);
-		}
-
-		return false;
-		}
 
 }

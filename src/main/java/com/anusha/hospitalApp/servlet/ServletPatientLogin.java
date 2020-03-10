@@ -33,7 +33,7 @@ public class ServletPatientLogin extends HttpServlet {
         PatientsDAOImpl dao = new PatientsDAOImpl();
        
         try {
-			status = user.login(user);
+			status = dao.login(user);
 			System.out.println(status);
 			Integer uid=dao.findByPhNoPasswrd(user.getpPhoneNumber(),user.getPatientPassword());
 			if ( uid != null) {
@@ -42,7 +42,6 @@ public class ServletPatientLogin extends HttpServlet {
 			      sess.setAttribute("patientId", uid);
 			      
 			LOGGER.debug(uid);
-			     // response.sendRedirect("ListDepartments.jsp");
 			}
 			
 		} catch (Exception e) {
@@ -51,8 +50,7 @@ public class ServletPatientLogin extends HttpServlet {
 		if (status==true)
 			response.sendRedirect("PatientFeatures.jsp");
 		else {
-			// out.print("<script> alert(Login failed);</script>");
-			request.setAttribute("errorMessage", "Invalid Credentials");
+			request.setAttribute("errorMessage3", "Invalid Credentials");
 			RequestDispatcher dispatcher = request.getRequestDispatcher("PatientLogin.jsp");
 			dispatcher.forward(request, response);
 		}

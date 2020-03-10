@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
-import com.anusha.hospitalApp.controller.IndexController;
 import com.anusha.hospitalApp.dao.AppointmentsDAO;
 import com.anusha.hospitalApp.exception.DBException;
 import com.anusha.hospitalApp.exception.ErrorConstant;
@@ -24,7 +23,7 @@ public class AppointmentsDAOImpl implements AppointmentsDAO {
 	private static final String ACTION_1 = "appointment_id";
 	private static final String ACTION_2 = "purpose";
 	private static final String ACTION_3 = "active_appointments";
-	private static final org.slf4j.Logger Logger = LoggerFactory.getLogger(IndexController.class);
+	private static final org.slf4j.Logger Logger = LoggerFactory.getLogger(AppointmentsDAOImpl.class);
 
 	public void save(Appointments app) throws SQLException, ClassNotFoundException, DBException
 	{

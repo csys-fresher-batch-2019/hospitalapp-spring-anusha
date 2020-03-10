@@ -2,7 +2,6 @@ package com.anusha.hospitalApp.dao;
 
 import java.sql.SQLException;
 import java.util.List;
-
 import com.anusha.hospitalApp.exception.DBException;
 import com.anusha.hospitalApp.model.Doctors;
 
@@ -10,6 +9,10 @@ public interface DoctorsDAO {
 
 	//insert
 	int save(Doctors doc) throws ClassNotFoundException, SQLException, DBException;
+	
+	public boolean login(Doctors doc) throws ClassNotFoundException;
+	
+	public int getUserId(String dPhoneNumber, String doctorPassword) throws DBException;
 	
 	//display
 	List<Doctors> displayDoctors() throws DBException ;

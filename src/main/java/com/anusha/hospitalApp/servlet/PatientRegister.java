@@ -59,7 +59,7 @@ public class PatientRegister extends HttpServlet {
 			}
 			if (status) {
 				request.setAttribute("errorMessage1", "Registered already!! Please login...");
-				RequestDispatcher dispatcher1 = request.getRequestDispatcher("DoctorRegistration.jsp");
+				RequestDispatcher dispatcher1 = request.getRequestDispatcher("PatientRegistration.jsp");
 				dispatcher1.forward(request, response);
 			} else {
 				dao.save(d1);

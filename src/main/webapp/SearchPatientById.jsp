@@ -6,7 +6,7 @@
 </head>
 <body>
 <jsp:include page="AdminNavBar.jsp"></jsp:include>
-<form action = "SearchPatientResult.jsp">
+<form action = "SearchPatientByIdServlet">
 <jsp:include page="Design.jsp"></jsp:include>
 <center><font color=blue>Enter Patient Id : </font> <input type="number" name="patientId" placeholder="Enter Patient Id" required autofocus/></center>
 <br>

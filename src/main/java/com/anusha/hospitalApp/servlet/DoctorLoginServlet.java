@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import com.anusha.hospitalApp.dao.impl.DoctorsDAOImpl;
 import com.anusha.hospitalApp.model.Doctors;
 import com.anusha.hospitalApp.util.Logger;
@@ -28,21 +27,20 @@ public class DoctorLoginServlet extends HttpServlet {
 		String DoctorPassword = request.getParameter("doctorPassword");
         
         Doctors user = new Doctors();
-        user.setdPhoneNumber(dPhoneNumber);
+        user.setDPhoneNumber(dPhoneNumber);
         user.setDoctorPassword(DoctorPassword);
         DoctorsDAOImpl dao = new DoctorsDAOImpl();
 		
 		try {
-			status = user.login(user);
+			status = dao.login(user);
 			System.out.println(status);
-			Integer uid=dao.getUserId(user.getdPhoneNumber(),user.getDoctorPassword());
+			Integer uid=dao.getUserId(user.getDPhoneNumber(),user.getDoctorPassword());
 			if ( uid != null) {
 
 			      HttpSession sess=request.getSession();
 			      sess.setAttribute("doctorId", uid);
 			      
 			LOGGER.debug(uid);
-			     // response.sendRedirect("ListDepartments.jsp");
 			}
 			
 		} catch (Exception e) {
@@ -51,7 +49,7 @@ public class DoctorLoginServlet extends HttpServlet {
 		if (status==true)
 			response.sendRedirect("DoctorFeatures.jsp");
 		else {
-			request.setAttribute("Error Message", "Invalid Credentials");
+			request.setAttribute("errorMessage2", "Invalid Credentials");
 			RequestDispatcher dispatcher = request.getRequestDispatcher("DoctorLogin.jsp");
 			dispatcher.forward(request, response);
 		}

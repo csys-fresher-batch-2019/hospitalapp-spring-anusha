@@ -11,5 +11,10 @@ public class Appointments {
 	private int doctorId;
 	private int active;
 	private String status;
+	@Override
+	public String toString() {
+		return "Appointments [id=" + id + ", patientId=" + patientId + ", purpose=" + purpose + ", doctorId=" + doctorId
+				+ ", active=" + active + ", status=" + status + "]";
+	}
 	
 }

@@ -46,9 +46,9 @@
 		</center>
 		<br> <br>
 		<center>
-			<c:if test="${not empty errorMessage}">
+			<c:if test="${not empty errorMessage2}">
 				<font color="red" style="font-style: normal"
-					" class="a">${errorMessage} </font>
+					" class="a">${errorMessage2} </font>
 			</c:if>
 		</center>
 		<form action="DoctorFeatures.jsp">

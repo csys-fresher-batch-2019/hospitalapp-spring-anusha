@@ -1,12 +1,4 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@page import="java.util.ArrayList"%>
-<%@page import="com.anusha.hospitalApp.model.Departments"%>
-<%@page import="com.anusha.hospitalApp.dao.PatientsDAO"%>
-<%@page import="com.anusha.hospitalApp.factory.DAOFactory"%>
-<%@page import="com.anusha.hospitalApp.model.Doctors"%>
-<%@page import="java.util.List"%>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -34,9 +26,9 @@
 				<tbody>
 					<c:forEach items="${output}" var="doctors">
 						<tr>
-							<td>${doctors.doctorName}</td>
-							<td>${doctors.doctorId}</td>
-							<td>${doctors.departmentName}</td>
+							<td>${doctors.name}</td>
+							<td>${doctors.id}</td>
+							<td>${doctors.department.name}</td>
 					</c:forEach>
 				</tbody>
 			</table>

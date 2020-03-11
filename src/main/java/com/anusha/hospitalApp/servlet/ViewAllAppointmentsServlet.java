@@ -1,7 +1,6 @@
 package com.anusha.hospitalApp.servlet;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.anusha.hospitalApp.dao.AppointmentsDAO;
+import com.anusha.hospitalApp.exception.DBException;
 import com.anusha.hospitalApp.model.Appointments;
 
 @WebServlet("/ViewAllAppointmentsServlet")
@@ -22,14 +22,11 @@ public class ViewAllAppointmentsServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
 		try {
-			List<Appointments>list = d1.findAll();
+			List<Appointments>list = d1.findAllAppointments();
 			request.setAttribute("output", list);
 			RequestDispatcher dispatcher = request.getRequestDispatcher("ViewAllAppointments.jsp");
 			dispatcher.forward(request, response);
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SQLException e) {
+		} catch (DBException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

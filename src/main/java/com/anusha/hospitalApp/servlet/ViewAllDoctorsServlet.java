@@ -23,12 +23,11 @@ public class ViewAllDoctorsServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
 		try {
-			List<Doctors>list = d1.displayDoctors();
+			List<Doctors>list = d1.findAllDoctors();
 			request.setAttribute("output", list);
 			RequestDispatcher dispatcher = request.getRequestDispatcher("ViewAllDoctors.jsp");
 			dispatcher.forward(request, response);
 		} catch (DBException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		

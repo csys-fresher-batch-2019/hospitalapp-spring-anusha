@@ -22,7 +22,7 @@ public class ViewAllPatientsServlet extends HttpServlet{
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
 		try {
-			List<Patients>list =d1.findAll();
+			List<Patients>list =d1.findAllPatients();
 			request.setAttribute("output", list);
 			RequestDispatcher dispatcher = request.getRequestDispatcher("ViewAllPatients.jsp");
 			dispatcher.forward(request, response);

@@ -1,10 +1,4 @@
-<%@page import="java.util.ArrayList"%>
-<%@page import="com.anusha.hospitalApp.model.Doctors"%>
-<%@page import="com.anusha.hospitalApp.dao.DoctorsDAO"%>
-<%@page import="java.util.List"%>
-<%@page import="com.anusha.hospitalApp.factory.DAOFactory"%>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -12,41 +6,46 @@
 <title>My Profile</title>
 </head>
 <body>
-<jsp:include page="DoctorNavBar.jsp"></jsp:include>
-<jsp:include page="Design.jsp"></jsp:include>
-<form action = DoctorLoginServlet></form>
-<h3><center><font color=blue>My Details</font></center></h3>
-<% 
-ArrayList<Doctors> a = (ArrayList)request.getAttribute("output");
-%>
+	<jsp:include page="DoctorNavBar.jsp"></jsp:include>
+	<jsp:include page="Design.jsp"></jsp:include>
+	<form action=DoctorLoginServlet></form>
+	<h3>
+		<center>
+			<font color=blue>My Details</font>
+		</center>
+	</h3>
 <body>
 
-<center><table border="1"></center>
-<thread><tr><th>Doctor Id</th>
-<th>Doctor Name</th>
-<th>Department Id</th>
-<th>Phone Number</th>
-<th>Gender</th>
-<th>Number of appointments</th>
-<th>Present</th>
-<th>Active</th></tr>
-<tbody>
-<%
-for (Doctors doc : a) {%>
-<tr>
-<td><%= doc.getDoctorId() %></td>
-<td><%= doc.getDoctorName() %></td>
-<td><%= doc.getDepartmentId() %>
-<td><%=doc.getDPhoneNumber()%></td>
-<td><%=doc.getDGender()%></td>
-<td><%= doc.getNoOfAppointment() %></td>
-<td><%= doc.getDoctorPresent() %></td>
-<td><%= doc.getActive() %></td>
-</tr>
-<%}
-%>
-</tbody>
-</table>
-</form>
+	<center>
+		<table border="1">
+			</center>
+			<thread>
+			<tr>
+				<th>Doctor Id</th>
+				<th>Doctor Name</th>
+				<th>Gender</th>
+				<th>Phone Number</th>			
+				<th>Department Id</th>
+				<th>Present</th>
+				<th>Number of appointments</th>				
+				<th>Active</th>
+			</tr>
+			<tbody>
+				<c:if test="${empty sessionScope.id}">
+				</c:if>
+				<c:forEach items="${output}" var="doctors">
+					<tr>
+						<td>${doctors.id}</td>
+						<td>${doctors.name}</td>
+						<td>${doctors.gender}</td>
+						<td>${doctors.phoneNumber}</td>
+						<td>${doctors.departmentId}</td>
+						<td>${doctors.present}</td>
+						<td>${doctors.noOfAppointment}</td>
+						<td>${doctors.active}</td>
+				</c:forEach>
+			</tbody>
+		</table>
+		</form>
 </body>
 </html>

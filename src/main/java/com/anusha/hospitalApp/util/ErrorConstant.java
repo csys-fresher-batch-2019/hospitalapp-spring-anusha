@@ -1,4 +1,4 @@
-package com.anusha.hospitalApp.exception;
+package com.anusha.hospitalApp.util;
 
 public class ErrorConstant {
 	public static final String INVALID_CON

@@ -32,8 +32,8 @@
 			<tbody>
 				<c:forEach items="${output}" var="doctors">
 					<tr>
-						<td>${doctors.doctorId}</td>
-						<td>${doctors.doctorName}</td>
+						<td>${doctors.id}</td>
+						<td>${doctors.name}</td>
 				</c:forEach>
 			</tbody>
 		</table>

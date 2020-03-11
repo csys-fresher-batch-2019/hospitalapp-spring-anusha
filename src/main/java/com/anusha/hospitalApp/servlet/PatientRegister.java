@@ -1,6 +1,7 @@
 package com.anusha.hospitalApp.servlet;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,8 +10,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.anusha.hospitalApp.dao.PatientsDAO;
+import com.anusha.hospitalApp.exception.ServiceException;
 import com.anusha.hospitalApp.factory.DAOFactory;
 import com.anusha.hospitalApp.model.Patients;
+import com.anusha.hospitalApp.service.Service;
 import com.anusha.hospitalApp.util.Logger;
 
 @SuppressWarnings("serial")
@@ -38,20 +41,20 @@ public class PatientRegister extends HttpServlet {
 		LOGGER.debug("Doctor Password" + password);
 		Patients d1 = new Patients();
 
-		d1.setPatientName(name);
+		d1.setName(name);
 		d1.setAge(pAge);
-		d1.setpGender(gender);
+		d1.setGender(gender);
 		d1.setAddress(address);
-		d1.setpPhoneNumber(phoneNumber);
-		d1.setPatientPassword(password);
+		d1.setPhoneNumber(phoneNumber);
+		d1.setPassword(password);
 		PatientsDAO dao = DAOFactory.getPatientsDAO();
 
 		List<Patients> list;
 		try {
-			list = dao.findAll();
+			list = dao.findAllPatients();
 		boolean status = false;
 			for (Patients patient : list) {
-				String phNo = patient.getpPhoneNumber();
+				String phNo = patient.getPhoneNumber();
 				if (phNo.equals(phoneNumber)) {
 					status = true;
 				}
@@ -62,8 +65,18 @@ public class PatientRegister extends HttpServlet {
 				RequestDispatcher dispatcher1 = request.getRequestDispatcher("PatientRegistration.jsp");
 				dispatcher1.forward(request, response);
 			} else {
-				dao.save(d1);
+				try {
+				Service.patientRegistration(d1);
 				response.sendRedirect("PatientLogin.jsp");
+				} catch (ServiceException e) {
+					request.setAttribute("errorMessage1", e.getMessage());
+					RequestDispatcher dispatcher = request.getRequestDispatcher("DoctorRegistration.jsp");
+					dispatcher.forward(request, response);
+				} catch (SQLException e) {
+					request.setAttribute("errorMessage1", e.getMessage());
+					RequestDispatcher dispatcher = request.getRequestDispatcher("DoctorRegistration.jsp");
+					dispatcher.forward(request, response);
+				}				
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -27,14 +27,14 @@ public class DoctorLoginServlet extends HttpServlet {
 		String DoctorPassword = request.getParameter("doctorPassword");
         
         Doctors user = new Doctors();
-        user.setDPhoneNumber(dPhoneNumber);
-        user.setDoctorPassword(DoctorPassword);
+        user.setPhoneNumber(dPhoneNumber);
+        user.setPassword(DoctorPassword);
         DoctorsDAOImpl dao = new DoctorsDAOImpl();
 		
 		try {
 			status = dao.login(user);
 			System.out.println(status);
-			Integer uid=dao.getUserId(user.getDPhoneNumber(),user.getDoctorPassword());
+			Integer uid=dao.findId(user.getPhoneNumber(),user.getPassword());
 			if ( uid != null) {
 
 			      HttpSession sess=request.getSession();

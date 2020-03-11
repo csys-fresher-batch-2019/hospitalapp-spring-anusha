@@ -17,6 +17,12 @@
 				name="departmentName" placeholder="Enter Department Name" required
 				autofocus />
 		</center>
+		<br>
+		<center>
+			<c:if test="${not empty errorMessage2}">
+				<font color="red" style="font-style: normal" " class="a">${errorMessage2}
+			</c:if>
+		</center>
 		<br> 
 		<br>
 		<center>

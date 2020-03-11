@@ -22,8 +22,8 @@
 			<tbody>
 				<c:forEach items="${output}" var="departments">
 					<tr>
-						<td>${departments.departmentID}</td>
-						<td>${departments.departmentName}</td>
+						<td>${departments.id}</td>
+						<td>${departments.name}</td>
 				</c:forEach>
 			</tbody>
 		</table>

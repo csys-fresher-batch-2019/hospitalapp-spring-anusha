@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page import="java.util.ArrayList"%>
 </head>
 <body>
@@ -25,8 +26,8 @@
 		<tbody>
 			<c:forEach items="${output}" var="departments">
 					<tr>
-						<td>${departments.departmentID}</td>
-						<td>${departments.departmentName}</td>
+						<td>${departments.id}</td>
+						<td>${departments.name}</td>
 						<td>${departments.active}</td>
 				</c:forEach>
 		</tbody>

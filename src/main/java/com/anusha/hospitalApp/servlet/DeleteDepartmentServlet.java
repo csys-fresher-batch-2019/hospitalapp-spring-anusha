@@ -1,14 +1,11 @@
 package com.anusha.hospitalApp.servlet;
 
 import java.io.IOException;
-import java.sql.SQLException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import com.anusha.hospitalApp.dao.DepartmentsDAO;
 import com.anusha.hospitalApp.exception.DBException;
 import com.anusha.hospitalApp.factory.DAOFactory;
@@ -28,23 +25,15 @@ public class DeleteDepartmentServlet extends HttpServlet {
 		Departments d1 = new Departments();
 		
 		d1.setActive(act);
-		d1.setDepartmentID(depId);
+		d1.setId(depId);
 		
 		DepartmentsDAO dao = DAOFactory.getDepartmentsDAO();
 		
 		try {
-			try {
-				dao.update(act, depId);
+				dao.updateDepartmentStatus(act, depId);
 			} catch (DBException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			}
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
 		response.sendRedirect("ViewDepartmentDetailsServlet");
 	}

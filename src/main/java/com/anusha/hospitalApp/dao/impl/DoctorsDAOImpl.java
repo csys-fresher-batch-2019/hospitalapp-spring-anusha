@@ -13,9 +13,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 import com.anusha.hospitalApp.dao.DoctorsDAO;
 import com.anusha.hospitalApp.exception.DBException;
-import com.anusha.hospitalApp.exception.ErrorConstant;
 import com.anusha.hospitalApp.model.Doctors;
 import com.anusha.hospitalApp.util.ConnectionUtil;
+import com.anusha.hospitalApp.util.ErrorConstant;
 
 @Repository
 public class DoctorsDAOImpl implements DoctorsDAO {
@@ -24,7 +24,7 @@ public class DoctorsDAOImpl implements DoctorsDAO {
 	private static final String ACTION_1 = "doctor_id";
 	private static final String ACTION_2 = "department_id";
 
-	public int save(Doctors doc) throws ClassNotFoundException, SQLException, DBException {
+	public int save(Doctors doc) throws DBException {
 
 		int rows = 0;
 		String sql = "insert into doctors (doctor_id,doctor_name,department_id,doctor_password,d_phone_number,d_gender) values(doctor_id_sq.nextval,?,?,?,?,?)";
@@ -32,11 +32,11 @@ public class DoctorsDAOImpl implements DoctorsDAO {
 
 		try (Connection con = ConnectionUtil.getconnection(); PreparedStatement pst = con.prepareStatement(sql);) {
 
-			pst.setString(1, doc.getDoctorName());
+			pst.setString(1, doc.getName());
 			pst.setInt(2, doc.getDepartmentId());
-			pst.setString(3, doc.getDoctorPassword());
-			pst.setString(4, doc.getDPhoneNumber());
-			pst.setString(5, doc.getDGender());
+			pst.setString(3, doc.getPassword());
+			pst.setString(4, doc.getPhoneNumber());
+			pst.setString(5, doc.getGender());
 
 			rows = pst.executeUpdate();
 			Logger.debug("No of rows inserted " + rows);
@@ -48,7 +48,7 @@ public class DoctorsDAOImpl implements DoctorsDAO {
 		return rows;
 	}
 
-	public List<Doctors> displayDoctors() throws DBException {
+	public List<Doctors> findAllDoctors() throws DBException {
 
 		List<Doctors> list = new ArrayList<>();
 
@@ -70,13 +70,13 @@ public class DoctorsDAOImpl implements DoctorsDAO {
 				Logger.debug(
 						doctorId + doctorName + deptId + active + present + dPhoneNumber + dGender + noOfAppointment);
 				Doctors d1 = new Doctors();
-				d1.setDoctorId(doctorId);
-				d1.setDoctorName(doctorName);
+				d1.setId(doctorId);
+				d1.setName(doctorName);
 				d1.setDepartmentId(deptId);
 				d1.setActive(active);
-				d1.setDoctorPresent(present);
-				d1.setDPhoneNumber(dPhoneNumber);
-				d1.setDGender(dGender);
+				d1.setPresent(present);
+				d1.setPhoneNumber(dPhoneNumber);
+				d1.setGender(dGender);
 				d1.setNoOfAppointment(noOfAppointment);
 
 				list.add(d1);
@@ -90,7 +90,7 @@ public class DoctorsDAOImpl implements DoctorsDAO {
 		return list;
 	}
 
-	public void delete(int doctorId) throws ClassNotFoundException, SQLException, DBException {
+	public void delete(int doctorId) throws DBException {
 
 		String sql = "Update doctors set active_doctors = 0 where doctor_id = ?";
 
@@ -128,10 +128,10 @@ public class DoctorsDAOImpl implements DoctorsDAO {
 					int docPre = rows.getInt("doctor_presence");
 					Logger.debug(" " + doctorId + " " + deptId);
 					Doctors d1 = new Doctors();
-					d1.setDoctorId(doctorId);
+					d1.setId(doctorId);
 					d1.setDepartmentId(deptId);
-					d1.setDoctorName(doctorName);
-					d1.setDoctorPresent(docPre);
+					d1.setName(doctorName);
+					d1.setPresent(docPre);
 					list.add(d1);
 				}
 			}
@@ -166,9 +166,9 @@ public class DoctorsDAOImpl implements DoctorsDAO {
 				Logger.debug(doctorId + deptId + docName);
 
 				Doctors d1 = new Doctors();
-				d1.setDoctorId(doctorId);
+				d1.setId(doctorId);
 				d1.setDepartmentId(deptId);
-				d1.setDoctorName(docName);
+				d1.setName(docName);
 
 				list.add(d1);
 			}
@@ -180,7 +180,7 @@ public class DoctorsDAOImpl implements DoctorsDAO {
 		return list;
 	}
 
-	public List<Doctors> findById(int doctorId) throws ClassNotFoundException, SQLException, DBException {
+	public List<Doctors> findById(int doctorId) throws DBException {
 
 		List<Doctors> list = new ArrayList<>();
 
@@ -204,13 +204,13 @@ public class DoctorsDAOImpl implements DoctorsDAO {
 					Logger.debug(doctorId + doctorName + deptId + active + present + dPhoneNumber + dGender
 							+ noOfAppointment);
 					Doctors d1 = new Doctors();
-					d1.setDoctorId(docId);
-					d1.setDoctorName(doctorName);
+					d1.setId(docId);
+					d1.setName(doctorName);
 					d1.setDepartmentId(deptId);
 					d1.setActive(active);
-					d1.setDoctorPresent(present);
-					d1.setDPhoneNumber(dPhoneNumber);
-					d1.setDGender(dGender);
+					d1.setPresent(present);
+					d1.setPhoneNumber(dPhoneNumber);
+					d1.setGender(dGender);
 					d1.setNoOfAppointment(noOfAppointment);
 
 					list.add(d1);
@@ -225,7 +225,7 @@ public class DoctorsDAOImpl implements DoctorsDAO {
 		return list;
 	}
 
-	public int getUserId(String dPhoneNumber, String doctorPassword) throws DBException {
+	public int findId(String dPhoneNumber, String doctorPassword) throws DBException {
 		String sql = "select doctor_id from doctors where d_phone_number=?and doctor_password=?";
 		Logger.debug(sql);
 		int v = 0;
@@ -240,7 +240,7 @@ public class DoctorsDAOImpl implements DoctorsDAO {
 
 				}
 			}
-		} catch (SQLException | ClassNotFoundException e) {
+		} catch (SQLException e) {
 
 			e.printStackTrace();
 			Logger.error(e.getMessage());
@@ -250,12 +250,12 @@ public class DoctorsDAOImpl implements DoctorsDAO {
 
 	}
 
-	public boolean login(Doctors doc) throws ClassNotFoundException {
+	public boolean login(Doctors doc) throws DBException {
 
 		try (Connection con = ConnectionUtil.getconnection();
 				CallableStatement stmt = con.prepareCall("{call doctor_login(?,?,?,?)}")) {
-			stmt.setString(1, doc.getDPhoneNumber());
-			stmt.setString(2, doc.getDoctorPassword());
+			stmt.setString(1, doc.getPhoneNumber());
+			stmt.setString(2, doc.getPassword());
 			stmt.setInt(3, doc.getActive());
 			stmt.registerOutParameter(4, Types.VARCHAR);
 			stmt.executeUpdate();
@@ -270,10 +270,10 @@ public class DoctorsDAOImpl implements DoctorsDAO {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-			Logger.error(e.getMessage());
+			Logger.debug(e.getMessage());
+			throw new DBException(ErrorConstant.INVALID_SELECT);
 		}
 
-		return false;
 	}
 
 }

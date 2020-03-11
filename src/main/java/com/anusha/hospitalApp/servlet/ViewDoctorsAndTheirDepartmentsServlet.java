@@ -1,7 +1,6 @@
 package com.anusha.hospitalApp.servlet;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -28,12 +27,7 @@ public class ViewDoctorsAndTheirDepartmentsServlet extends HttpServlet {
 			request.setAttribute("output", list);
 			RequestDispatcher dispatcher = request.getRequestDispatcher("ViewDoctorsAndTheirDepartments.jsp");
 			dispatcher.forward(request, response);
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		
 		} catch (DBException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

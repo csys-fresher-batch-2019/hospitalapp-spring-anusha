@@ -1,5 +1,4 @@
-<%@page import="java.util.ArrayList"%>
-<%@page import="com.anusha.hospitalApp.model.Patients"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <title>List Patients</title>
@@ -11,9 +10,6 @@
 		<font color=blue>List Patients</font>
 	</center>
 </h3>
-<%
-	ArrayList<Patients> a = (ArrayList) request.getAttribute("output");
-%>
 <body>
 	<center>
 		<table border="1">
@@ -32,13 +28,13 @@
 			<tbody>
 				<c:forEach items="${output}" var="patients">
 					<tr>
-						<td>${patients.patientId}</td>
-						<td>${patients.patientName}</td>
+						<td>${patients.id}</td>
+						<td>${patients.name}</td>
 						<td>${patients.age}</td>
-						<td>${patients.pGender}</td>
+						<td>${patients.gender}</td>
 						<td>${patients.address}</td>
-						<td>${patients.pPhoneNumber}</td>
-						<td>${patients.activePatient}</td>
+						<td>${patients.phoneNumber}</td>
+						<td>${patients.active}</td>
 				</c:forEach>
 			</tbody>
 		</table>

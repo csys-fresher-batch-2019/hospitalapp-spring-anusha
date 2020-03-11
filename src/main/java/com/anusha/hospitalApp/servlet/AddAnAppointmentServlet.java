@@ -1,14 +1,11 @@
 package com.anusha.hospitalApp.servlet;
 
 import java.io.IOException;
-import java.sql.SQLException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import com.anusha.hospitalApp.dao.AppointmentsDAO;
 import com.anusha.hospitalApp.exception.DBException;
 import com.anusha.hospitalApp.factory.DAOFactory;
@@ -39,20 +36,12 @@ public class AddAnAppointmentServlet extends HttpServlet {
 		AppointmentsDAO dao = DAOFactory.getAppointmentsDAO();
 		
 		try {
-			try {
-				dao.save(d1);
-			} catch (DBException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SQLException e) {
+			dao.save(d1);
+		} catch (DBException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		response.sendRedirect("DisplayPatientAppointments.jsp");
+		response.sendRedirect("DisplayPatientAppointmentsServlet");
 	}
 
 }

@@ -1,31 +1,23 @@
 package com.anusha.hospitalApp.dao;
 
-import java.sql.SQLException;
 import java.util.List;
-
 import com.anusha.hospitalApp.exception.DBException;
 import com.anusha.hospitalApp.model.Doctors;
 import com.anusha.hospitalApp.model.Patients;
 
 public interface PatientsDAO {
-	
-	//insert
-	void save(Patients p) throws ClassNotFoundException, SQLException, DBException;
-	
-	public boolean login(Patients user); 
-	
-	//display
-	List<Patients> findAll() throws DBException ;
-	
-	//delete 
-	void update(int patientId) throws ClassNotFoundException, SQLException, DBException;
 
-	//doc list
-	public List<Doctors> joinDepartmentsDoctors() throws SQLException, ClassNotFoundException, DBException;
+	void save(Patients p) throws DBException;
 
-	//profile
-	public List<Patients> findById(int patientId) throws SQLException, ClassNotFoundException, DBException;
+	public boolean login(Patients user) throws DBException;
 
-	//get id
-	public int findByPhNoPasswrd(String pPhoneNumber, String patientPassword) throws DBException ;
+	List<Patients> findAllPatients() throws DBException;
+
+	void updateById(int patientId) throws DBException;
+
+	public List<Doctors> joinDepartmentsDoctors() throws DBException;
+
+	public List<Patients> findById(int patientId) throws DBException;
+
+	public int findId(String pPhoneNumber, String patientPassword) throws DBException;
 }

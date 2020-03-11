@@ -1,4 +1,4 @@
- package com.anusha.hospitalApp.controller;
+package com.anusha.hospitalApp.controller;
 
 import java.sql.SQLException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +16,8 @@ import com.anusha.hospitalApp.model.Doctors;
 public class HospitalAppController {
 
 	@Autowired
-	DoctorsDAO dao ;
-	
+	DoctorsDAO dao;
+
 	@GetMapping("/docRegister")
 	public MessageDTO docRegister(@RequestParam("name") String name, @RequestParam("phnum") String phoneNumber,
 			@RequestParam("docgender") String gender, @RequestParam("deptid") int depId,
@@ -26,21 +26,19 @@ public class HospitalAppController {
 		MessageDTO msg = new MessageDTO();
 		Doctors d1 = new Doctors();
 
-		d1.setDoctorName(name);
-		d1.setDPhoneNumber(phoneNumber);
+		d1.setName(name);
+		d1.setPhoneNumber(phoneNumber);
 		d1.setDepartmentId(depId);
-		d1.setDoctorPassword(password);
-		d1.setDGender(gender);
-		
+		d1.setPassword(password);
+		d1.setGender(gender);
+
 		int add = dao.save(d1);
-		
-		if (add==1) {
+
+		if (add == 1) {
 			msg.setInfomessage("Successfully registered");
-		}
-		else
-		{
+		} else {
 			msg.setErrormessage("Try again");
 		}
 		return msg;
-}
+	}
 }

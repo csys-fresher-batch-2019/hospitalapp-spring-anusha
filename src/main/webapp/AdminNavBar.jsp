@@ -58,7 +58,7 @@ body {
   <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
   <a href="AddDepartments.jsp">Add Departments</a>
   <a href="ViewDepartmentDetailsServlet">View Department Details</a>
-  <a href="DeleteDepartments.jsp">Delete Departments</a>
+  <a href="DeleteDepartments.jsp">Update Department Status</a>
   <a href="ViewAllDoctorsServlet">View All Doctors</a>
   <a href="ViewDoctorsPresentServlet">Doctors Present</a>
   <a href="SearchDoctorByName.jsp">Search Doctors By Name</a>

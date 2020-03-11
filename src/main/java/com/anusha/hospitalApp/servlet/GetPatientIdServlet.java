@@ -21,19 +21,19 @@ public class GetPatientIdServlet extends HttpServlet {
 			throws ServletException, IOException {
 		Patients p = new Patients();
 
-		p.setpPhoneNumber((request.getParameter("phonenumber")));
-		p.setPatientPassword((request.getParameter("password")));
+		p.setPhoneNumber((request.getParameter("phonenumber")));
+		p.setPassword((request.getParameter("password")));
 		PatientsDAOImpl dao = new PatientsDAOImpl();
 
 		try {
-			Integer uid = dao.findByPhNoPasswrd(p.getpPhoneNumber(), p.getPatientPassword());
+			Integer uid = dao.findId(p.getPhoneNumber(), p.getPassword());
 			if (uid != null) {
 
 				HttpSession sess = request.getSession();
 				sess.setAttribute("patientId", uid);
 
 				LOGGER.debug(uid);
-				// response.sendRedirect("Routes.jsp");
+				
 			}
 
 		} catch (Exception e) {

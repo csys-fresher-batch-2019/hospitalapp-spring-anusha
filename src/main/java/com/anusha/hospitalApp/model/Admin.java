@@ -1,28 +1,15 @@
 package com.anusha.hospitalApp.model;
 
+import lombok.Data;
+
+@Data
 public class Admin {
 
-	private String adminName;
-	private String adminPassword;
-
-	public String getAdminName() {
-		return adminName;
-	}
-
-	public void setAdminName(String adminName) {
-		this.adminName = adminName;
-	}
-
-	public String getAdminPassword() {
-		return adminPassword;
-	}
-
-	public void setAdminPassword(String adminPassword) {
-		this.adminPassword = adminPassword;
-	}
+	private String name;
+	private String password;
 
 	@Override
 	public String toString() {
-		return "AdminClass [adminName=" + adminName + ", adminPassword=" + adminPassword + "]";
+		return "AdminClass [adminName=" + name + ", adminPassword=" + password + "]";
 	}
 }

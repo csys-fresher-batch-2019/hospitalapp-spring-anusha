@@ -36,11 +36,11 @@
 			<tbody>
 				<c:forEach items="${output}" var="appointments">
 					<tr>
-						<td>${appointments.appointmentId}</td>
+						<td>${appointments.id}</td>
 						<td>${appointments.doctorId}</td>
 						<td>${appointments.patientId}</td>
 						<td>${appointments.purpose}</td>
-						<td>${appointments.appointmentStatus}</td>
+						<td>${appointments.status}</td>
 						<td>${appointments.active}</td>
 				</c:forEach>
 			</tbody>

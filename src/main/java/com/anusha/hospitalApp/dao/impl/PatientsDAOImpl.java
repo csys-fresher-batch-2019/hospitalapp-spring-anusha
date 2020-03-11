@@ -13,18 +13,18 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 import com.anusha.hospitalApp.dao.PatientsDAO;
 import com.anusha.hospitalApp.exception.DBException;
-import com.anusha.hospitalApp.exception.ErrorConstant;
 import com.anusha.hospitalApp.model.Departments;
 import com.anusha.hospitalApp.model.Doctors;
 import com.anusha.hospitalApp.model.Patients;
 import com.anusha.hospitalApp.util.ConnectionUtil;
+import com.anusha.hospitalApp.util.ErrorConstant;
 
 @Repository
 public class PatientsDAOImpl implements PatientsDAO {
 
 	private static final org.slf4j.Logger Logger = LoggerFactory.getLogger(PatientsDAOImpl.class);
 
-	public void save(Patients p) throws ClassNotFoundException, SQLException, DBException {
+	public void save(Patients p) throws DBException {
 
 		String sql = "insert into patient (patient_id, patient_name, age, address, p_phone_number, p_gender,patient_password) values (patient_id_sq.nextval,?, ?, ?, ?, ?, ?)";
 
@@ -32,24 +32,24 @@ public class PatientsDAOImpl implements PatientsDAO {
 
 		try (Connection con = ConnectionUtil.getconnection(); PreparedStatement pst = con.prepareStatement(sql);) {
 
-			pst.setString(1, p.getPatientName());
+			pst.setString(1, p.getName());
 			pst.setInt(2, p.getAge());
 			pst.setString(3, p.getAddress());
-			pst.setString(4, p.getpPhoneNumber());
-			pst.setString(5, p.getpGender());
-			pst.setString(6, p.getPatientPassword());
+			pst.setString(4, p.getPhoneNumber());
+			pst.setString(5, p.getGender());
+			pst.setString(6, p.getPassword());
 
 			// execute query
 			int rows = pst.executeUpdate();
 			Logger.debug("No of rows inserted " + rows);
-		} catch (Exception e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
 			Logger.debug(e.getMessage());
 			throw new DBException(ErrorConstant.INVALID_ADD);
 		}
 	}
 
-	public List<Patients> findAll() throws DBException {
+	public List<Patients> findAllPatients() throws DBException {
 
 		List<Patients> list = new ArrayList<>();
 		String sql = "select patient_id,patient_name,age, p_gender, address, p_phone_number, active_patients from patient order by patient_id asc";
@@ -70,18 +70,18 @@ public class PatientsDAOImpl implements PatientsDAO {
 				String phoneNo = rows.getString("p_phone_number");
 				int active = rows.getInt("active_patients");
 				Patients d1 = new Patients();
-				d1.setPatientId(patientId);
-				d1.setActivePatient(active);
+				d1.setId(patientId);
+				d1.setActive(active);
 				d1.setAddress(address);
 				d1.setAge(age);
-				d1.setpGender(gender);
-				d1.setPatientName(patientName);
-				d1.setpPhoneNumber(phoneNo);
+				d1.setGender(gender);
+				d1.setName(patientName);
+				d1.setPhoneNumber(phoneNo);
 				list.add(d1);
 				Logger.debug(patientId + " " + patientName + " " + active + " " + age + " " + gender + " " + address
 						+ " " + phoneNo + " " + active);
 			}
-		} catch (Exception e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
 			Logger.debug(e.getMessage());
 			throw new DBException(ErrorConstant.INVALID_SELECT);
@@ -90,7 +90,7 @@ public class PatientsDAOImpl implements PatientsDAO {
 		return list;
 	}
 
-	public void update(int patientId) throws ClassNotFoundException, SQLException, DBException {
+	public void updateById(int patientId) throws DBException {
 
 		String sql = "update patient set active_patients=0 where patient_id = ?";
 		Logger.debug(sql + patientId);
@@ -102,7 +102,7 @@ public class PatientsDAOImpl implements PatientsDAO {
 
 			int rows = pst.executeUpdate();
 			Logger.debug("No of rows deleted " + rows);
-		} catch (Exception e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
 			Logger.debug(e.getMessage());
 			throw new DBException(ErrorConstant.INVALID_UPDATE);
@@ -110,7 +110,7 @@ public class PatientsDAOImpl implements PatientsDAO {
 
 	}
 
-	public List<Patients> findById(int patientId) throws SQLException, ClassNotFoundException, DBException {
+	public List<Patients> findById(int patientId) throws DBException {
 
 		List<Patients> list = new ArrayList<>();
 		String sql = "Select patient_id,patient_name, age, address, p_phone_number, p_gender from patient where patient_id = ?";
@@ -133,16 +133,16 @@ public class PatientsDAOImpl implements PatientsDAO {
 
 					Patients d1 = new Patients();
 
-					d1.setPatientName(name);
+					d1.setName(name);
 					d1.setAddress(address);
 					d1.setAge(age);
-					d1.setpPhoneNumber(phoneNumber);
-					d1.setpGender(gender);
-					d1.setPatientId(patientId);
+					d1.setPhoneNumber(phoneNumber);
+					d1.setGender(gender);
+					d1.setId(patientId);
 					list.add(d1);
 				}
 			}
-		} catch (Exception e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
 			Logger.debug(e.getMessage());
 			throw new DBException(ErrorConstant.INVALID_SELECT);
@@ -150,14 +150,8 @@ public class PatientsDAOImpl implements PatientsDAO {
 		return list;
 	}
 
-	public List<Doctors> joinDepartmentsDoctors() throws SQLException, ClassNotFoundException, DBException {// to
+	public List<Doctors> joinDepartmentsDoctors() throws DBException {// to
 																											// display
-																											// doctor
-																											// name nd
-																											// id during
-																											// doctor id
-																											// entry
-
 		List<Doctors> list = new ArrayList<>();
 
 		String sql = ("select d.doctor_name,s.department_name,d.doctor_id from doctors d join departments s on d.department_id = s.department_id where d.active_doctors=1 order by d.doctor_id asc");
@@ -172,15 +166,15 @@ public class PatientsDAOImpl implements PatientsDAO {
 				String departmentName = rows.getString("department_name");
 
 				Departments d1 = new Departments();
-				d1.setDepartmentName(departmentName);
+				d1.setName(departmentName);
 				Doctors d2 = new Doctors();
-				d2.setDoctorName(doctorName);
-				d2.setDoctorId(doctorId);
+				d2.setName(doctorName);
+				d2.setId(doctorId);
 				d2.setDepartment(d1);
 				list.add(d2);
 
 			}
-		} catch (Exception e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
 			Logger.debug(e.getLocalizedMessage());
 			throw new DBException(ErrorConstant.INVALID_SELECT);
@@ -188,7 +182,7 @@ public class PatientsDAOImpl implements PatientsDAO {
 		return list;
 	}
 
-	public int findByPhNoPasswrd(String pPhoneNumber, String patientPassword) throws DBException {
+	public int findId(String pPhoneNumber, String patientPassword) throws DBException {
 		String sql = "select patient_id from patient where p_phone_number=?and patient_password=?";
 		System.out.println(sql);
 		int v = 0;
@@ -203,40 +197,38 @@ public class PatientsDAOImpl implements PatientsDAO {
 
 				}
 			}
-		} catch (SQLException | ClassNotFoundException e) {
-
+		} catch (SQLException e) {
 			e.printStackTrace();
-			Logger.error(e.getMessage());
+			Logger.debug(e.getLocalizedMessage());
 			throw new DBException(ErrorConstant.INVALID_SELECT);
 		}
 		return v;
 
 	}
 
-	public boolean login(Patients user) {
+	public boolean login(Patients user) throws DBException {
 
 		try (Connection con = ConnectionUtil.getconnection();
 				CallableStatement stmt = con.prepareCall("{call patient_login(?,?,?,?)}")) {
-			stmt.setString(1, user.getpPhoneNumber());
-			stmt.setString(2, user.getPatientPassword());
-			stmt.setInt(3, user.getActivePatient());
+			stmt.setString(1, user.getPhoneNumber());
+			stmt.setString(2, user.getPassword());
+			stmt.setInt(3, user.getActive());
 			stmt.registerOutParameter(4, Types.VARCHAR);
 			stmt.executeUpdate();
 			String status = stmt.getString(4);
 			Logger.info("Status = " + status);
-			if ((status.equals("Success")) && (user.getActivePatient() == 1)) {
+			if ((status.equals("Success")) && (user.getActive() == 1)) {
 				Logger.debug("Logged In");
 				return true;
 			} else {
 				Logger.debug("Logged out");
 				return false;
 			}
-		} catch (Exception e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
-			Logger.error(e.getMessage());
+			Logger.debug(e.getLocalizedMessage());
+			throw new DBException(ErrorConstant.INVALID_SELECT);
 		}
-
-		return false;
 	}
 
 }

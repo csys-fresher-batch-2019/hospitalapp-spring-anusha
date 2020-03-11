@@ -35,13 +35,13 @@
 			<tbody>
 				<c:forEach items="${output}" var="patients">
 					<tr>
-						<td>${patients.patientId}</td>
-						<td>${patients.patientName}</td>
-						<td>${patients.pPhoneNumber}</td>
-						<td>${patients.pGender}</td>
+						<td>${patients.id}</td>
+						<td>${patients.name}</td>
+						<td>${patients.phoneNumber}</td>
+						<td>${patients.gender}</td>
 						<td>${patients.age}</td>
 						<td>${patients.address}</td>
-						<td>${patients.activePatient}</td>
+						<td>${patients.active}</td>
 				</c:forEach>
 			</tbody>
 		</table>

@@ -1,7 +1,6 @@
 package com.anusha.hospitalApp.servlet;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,6 +10,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.anusha.hospitalApp.dao.PatientsDAO;
 import com.anusha.hospitalApp.exception.DBException;
+
 @SuppressWarnings("serial")
 @WebServlet("/DeactivatePatientProfileServlet")
 public class DeactivatePatientProfileServlet extends HttpServlet {
@@ -24,13 +24,7 @@ public class DeactivatePatientProfileServlet extends HttpServlet {
 		try {
 			HttpSession sess = request.getSession(false);
 			int patientId = (Integer) (sess.getAttribute("patientId"));
-			dao.update(patientId);
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			dao.updateById(patientId);
 		} catch (DBException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

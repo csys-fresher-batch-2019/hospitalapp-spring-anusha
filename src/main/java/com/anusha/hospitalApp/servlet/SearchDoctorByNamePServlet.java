@@ -1,7 +1,6 @@
 package com.anusha.hospitalApp.servlet;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -23,8 +22,8 @@ public class SearchDoctorByNamePServlet extends HttpServlet {
 	DoctorsDAO dao;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException{
-		
+			throws ServletException, IOException {
+
 		try {
 			DoctorsDAO dao = DAOFactory.getDoctorsDAO();
 			String doctorName = request.getParameter("doctorName");
@@ -32,16 +31,10 @@ public class SearchDoctorByNamePServlet extends HttpServlet {
 			request.setAttribute("output", list);
 			RequestDispatcher dispatcher = request.getRequestDispatcher("SearchDoctorResultP.jsp");
 			dispatcher.forward(request, response);
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		} catch (DBException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
-}
+	}
 }

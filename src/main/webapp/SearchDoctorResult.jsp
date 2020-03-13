@@ -1,8 +1,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="com.anusha.hospitalApp.factory.DAOFactory"%>
-<%@page import="com.anusha.hospitalApp.dao.DoctorsDAO"%>
-<%@page import="com.anusha.hospitalApp.model.Doctors"%>
+<%@page import="com.anusha.hospital.factory.DAOFactory"%>
+<%@page import="com.anusha.hospital.dao.DoctorsDAO"%>
+<%@page import="com.anusha.hospital.model.Doctors"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>

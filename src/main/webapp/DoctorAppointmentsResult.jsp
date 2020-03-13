@@ -1,9 +1,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%@page import="java.util.ArrayList"%>
-<%@page import="com.anusha.hospitalApp.factory.DAOFactory"%>
-<%@page import="com.anusha.hospitalApp.dao.AppointmentsDAO"%>
-<%@page import="com.anusha.hospitalApp.model.Appointments"%>
+<%@page import="com.anusha.hospital.factory.DAOFactory"%>
+<%@page import="com.anusha.hospital.dao.AppointmentsDAO"%>
+<%@page import="com.anusha.hospital.model.Appointments"%>
 <%@page import="java.util.List"%>
 <html>
 <head>

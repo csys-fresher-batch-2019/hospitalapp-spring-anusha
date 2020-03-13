@@ -1,5 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@page import="com.anusha.hospitalApp.model.Departments"%>
+<%@page import="com.anusha.hospital.model.Departments"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
 </head>

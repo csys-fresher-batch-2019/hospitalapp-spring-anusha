@@ -20,12 +20,12 @@
 		<br> <br> <br>
 		<center>
 			<font color=blue>Enter Purpose : </font><input type="text"
-				name="purpose" placeholder="Enter Purpose:" required autofocus  />
+				name="purpose" placeholder="Enter Purpose:" required autofocus />
 		</center>
 		<br> <br> <br>
 		<center>
 			<font color=blue>Enter Doctor Id : </font><input type="number"
-				name="doctorId" placeholder="Enter Doctor Id:" required  />
+				name="doctorId" placeholder="Enter Doctor Id:" required />
 		</center>
 		<br> <br> <br>
 		<center>

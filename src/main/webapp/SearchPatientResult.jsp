@@ -1,7 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@page import="com.anusha.hospitalApp.factory.DAOFactory"%>
-<%@page import="com.anusha.hospitalApp.dao.PatientsDAO"%>
-<%@page import="com.anusha.hospitalApp.model.Patients"%>
+<%@page import="com.anusha.hospital.factory.DAOFactory"%>
+<%@page import="com.anusha.hospital.dao.PatientsDAO"%>
+<%@page import="com.anusha.hospital.model.Patients"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>

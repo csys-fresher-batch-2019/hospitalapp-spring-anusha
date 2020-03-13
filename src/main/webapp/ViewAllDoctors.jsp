@@ -1,6 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="com.anusha.hospitalApp.model.Doctors"%>
+<%@page import="com.anusha.hospital.model.Doctors"%>
 <!DOCTYPE html >
 <html>
 <head>

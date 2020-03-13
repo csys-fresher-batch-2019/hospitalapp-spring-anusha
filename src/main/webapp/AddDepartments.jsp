@@ -23,8 +23,7 @@
 				<font color="red" style="font-style: normal" " class="a">${errorMessage2}
 			</c:if>
 		</center>
-		<br> 
-		<br>
+		<br> <br>
 		<center>
 			<button class="button">ADD</button>
 		</center>

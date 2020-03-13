@@ -5,16 +5,22 @@
 <title>Deactivate Doctor Profile</title>
 </head>
 <body>
-<form action="DeactivateDoctorProfileServlet">
-<jsp:include page="AdminNavBar.jsp"></jsp:include>
-<jsp:include page="Design.jsp"></jsp:include>
-	<h1>
-		<center><font color="blue">Deactivate doctor account</font></center>
-	</h1>
-<center><font color="blue">Enter Doctor Id : </font> <input type="number" name="doctorId" placeholder="Enter Doctor Id" required autofocus/></center>
-<br>
-<br>
-<center><button class="button">Deactivate</button></center>
-</form>
+	<form action="DeactivateDoctorProfileServlet">
+		<jsp:include page="AdminNavBar.jsp"></jsp:include>
+		<jsp:include page="Design.jsp"></jsp:include>
+		<h1>
+			<center>
+				<font color="blue">Deactivate doctor account</font>
+			</center>
+		</h1>
+		<center>
+			<font color="blue">Enter Doctor Id : </font> <input type="number"
+				name="doctorId" placeholder="Enter Doctor Id" required autofocus />
+		</center>
+		<br> <br>
+		<center>
+			<button class="button">Deactivate</button>
+		</center>
+	</form>
 </body>
 </html>

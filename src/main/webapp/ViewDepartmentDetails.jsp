@@ -4,7 +4,7 @@
 <body>
 	<jsp:include page="AdminNavBar.jsp"></jsp:include>
 	<!DOCTYPE html>
-	<%@page import="com.anusha.hospitalApp.model.Departments"%>
+	<%@page import="com.anusha.hospital.model.Departments"%>
 <html>
 <title>List Departments</title>
 <h3>
